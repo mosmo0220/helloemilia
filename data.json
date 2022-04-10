@@ -3,106 +3,57 @@
 		{
 			"day": 99,
 			"content": "HTTP 404",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"type": "mystery"
 		},
 		{
 			"day": 98,
-			"content": "Żaden wiatr nie jest pomyślny temu, kto nie wie do którego portu płynie",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "Żaden wiatr nie jest pomyślny temu, kto nie wie do którego portu płynie"
 		},
 		{
 			"day": 97,
-			"content": "Jeśli jesteś najmądrzejszą osobą w pokoju, jesteś w złym pokoju",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "Jeśli jesteś najmądrzejszą osobą w pokoju, jesteś w złym pokoju"
 		},
 		{
 			"day": 96,
-			"content": "Każdy z nas ma w sobie demona, inna rzecz, to czy go ukazać chce",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "Każdy z nas ma w sobie demona, inna rzecz, to czy go ukazać chce"
 		},
 		{
 			"day": 95,
-			"content": "A ty co, nadal boisz się?",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "A ty co, nadal boisz się?"
 		},
 		{
 			"day": 94,
 			"content": "Upadłeś, powstań, znowu będziesz upadać, to przynajmniej upadnij w dobrą stronę",
-			"type": "special",
-			"story": {
-				"id": null
-			}
+			"type": "special"
 		},
 		{
 			"day": 93,
-			"content": "Do nokaut dążyć będę",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "Do nokaut dążyć będę"
 		},
 		{
 			"day": 92,
-			"content": "Stand up, the part's over here. Come one, come all jump into the fire",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "Stand up, the part's over here. Come one, come all jump into the fire"
 		},
 		{
 			"day": 91,
-			"content": "Odwaga to panowanie nad strachem, a nie brak strachu. Sztuką nie jest się nie bać, sztuką jest opanować strach",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "Odwaga to panowanie nad strachem, a nie brak strachu. Sztuką nie jest się nie bać, sztuką jest opanować strach"
 		},
 		{
 			"day": 90,
 			"content": "Więc powstałem, ale czy ja w ogóle zaczynam od początku, czy może jednak nie. Czym się od innych różnią cytaty specjalne od zwykłych",
-			"type": "special",
-			"story": {
-				"id": null
-			}
+			"type": "special"
 		},
 		{
 			"day": 89,
-			"content": "Do portu pewnego dążyć będe, nigdy nie patrząc już za siebie. Bowiem wiatr mnie pocziągnął w dobrą stronę",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "Do portu pewnego dążyć będe, nigdy nie patrząc już za siebie. Bowiem wiatr mnie pocziągnął w dobrą stronę"
 		},
 		{
 			"day": 88,
-			"content": "hmm",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "hmm"
 		},
 		{
 			"day": 87,
-			"content": "Jeśli tylko będziesz chciała, $2",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "Jeśli tylko będziesz chciała, $2"
 		},
 		{
 			"day": 86,
@@ -114,51 +65,29 @@
 		},
 		{
 			"day": 85,
-			"content": "Najtrudniejszym przeciwnikiem będziesz ty",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "Najtrudniejszym przeciwnikiem będziesz ty"
 		},
 		{
 			"day": 84,
-			"content": "Serce z kamienia mam, 4 jego fragmenty dudniły jednak kiedyś życiem. No właśnie kiedyś, Emilia wiesz może o jakie fragmenty chodzi",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "Serce z kamienia mam, 4 jego fragmenty dudniły jednak kiedyś życiem. No właśnie kiedyś, Emilia wiesz może o jakie fragmenty chodzi"
 		},
 		{
 			"day": 83,
-			"content": "Never FF",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "Never FF"
 		},
 		{
 			"day": 82,
 			"content": "HTTP 501",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"type": "irl"
 		},
 		{
 			"day": 81,
-			"content": "Ur making me smile",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "Ur making me smile"
 		},
 		{
 			"day": 80,
 			"content": "https://music.youtube.com/watch?v=fnlJw9H0xAM&feature=share",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"type": "yt-link"
 		},
 		{
 			"day": 79,
@@ -170,14 +99,9 @@
 		},
 		{
 			"day": 78,
-			"content": "Oazą spokoju staje się kiedy lepiej traktuje ciało swoje",
-			"type": "normal",
-			"story": {
-				"id": null
-			}
+			"content": "Oazą spokoju staje się kiedy lepiej traktuje ciało swoje"
 		}
 	],
-	"max": 78,
 	"final": {
 		"a1": null,
 		"a2": null

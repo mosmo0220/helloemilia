@@ -46,9 +46,14 @@ const makeProcess = async () => {
 		result.forEach((e) => {
 			if (e[1] == "link") {
 				let x = document.createElement("a");
-				x.href = host + "stories/" + e[2] + ".txt";
+				let y = CryptoJS.MD5("x" + e[2]).toString();
+				x.href = host + "stories/" + y + ".txt";
 				x.innerText = e[0];
 				x.classList.add("sublink");
+				xresult.appendChild(x);
+			} else if (e[1] == "break") {
+				let x = document.createElement("br");
+				x.classList.add(e[1]);
 				xresult.appendChild(x);
 			} else {
 				let x = document.createElement("p");

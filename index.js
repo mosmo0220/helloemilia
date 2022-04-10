@@ -18,7 +18,7 @@ const help = [
 	["> exit", "etxt"],
 ];
 const hversion = [
-	["Program version: 1.1.0", "title"],
+	["Program version: 1.1.11", "title"],
 	["", "break"],
 ];
 const e404 = [
@@ -69,20 +69,24 @@ app.get("/query/:q/:x", (req, res) => {
 	} else if (command == "declassified" && cvalue == "help") {
 		xres = hdeclassified;
 	} else if (command == "daypic" && cvalue != "NaV") {
-		let max = data.max;
+		let max = data.days.length;
+		max = data.days[max - 1].day;
+		console.log(max);
+
 		if (cvalue > 99 || cvalue < max) {
 			xres = e404;
 		} else {
 			let day = data.days[(cvalue - 99) * -1];
+			let type = day.type || "normal";
 
 			xres.push(["HTTP respond:", "title"]);
 			xres.push(["", "break"]);
 			xres.push(["Dzień " + day.day, "etxt"]);
 			xres.push(["", "break"]);
 			xres.push([day.content, "etxt"]);
-			xres.push(["Typ: " + day.type, "desc"]);
+			xres.push(["Typ: " + type, "desc"]);
 
-			if (day.story.id != null) {
+			if (day.story != undefined) {
 				xres.push(["Historia id:" + day.story.id, "link", day.story.id]);
 			}
 		}
