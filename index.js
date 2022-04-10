@@ -71,7 +71,6 @@ app.get("/query/:q/:x", (req, res) => {
 	} else if (command == "daypic" && cvalue != "NaV") {
 		let max = data.days.length;
 		max = data.days[max - 1].day;
-		console.log(max);
 
 		if (cvalue > 99 || cvalue < max) {
 			xres = e404;
