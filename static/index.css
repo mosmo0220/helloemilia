@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Open+Sans&family=Roboto:wght@300&display=swap");
+* {
+	font-family: "Open Sans", sans-serif;
+	box-sizing: border-box;
+	margin: 0;
+	overflow-x: hidden;
+}
+.console input {
+	font-family: "Roboto", sans-serif;
+}
+
+body {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+
+	width: 100vw;
+	min-height: 100vh;
+
+	background-color: rgb(15, 15, 15);
+	color: #eee;
+}
+
+.console {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+
+	padding-top: 25vh;
+	transition: all 1s;
+	/* 5 in view mode */
+}
+
+.console .title {
+	font-size: 30px;
+	margin-bottom: 20px;
+	font-family: "Inconsolata", monospace;
+	font-weight: 300;
+}
+
+.console input {
+	width: 550px;
+	height: 40px;
+
+	padding: 5px;
+
+	border: none;
+	background-color: rgba(255, 255, 255, 0.95);
+}
+
+.console .content {
+	margin-top: 50px;
+	font-family: "Inconsolata", monospace;
+	font-weight: 300;
+}
+.console .content p {
+	font-family: "Inconsolata", monospace;
+	font-weight: 300;
+}
+
+.content {
+	opacity: 0;
+	transition: all 1.2s;
+	text-align: left;
+	font-size: 20px;
+	padding: 50px;
+}
+
+.content .date {
+	text-align: left;
+	font-size: 15px;
+}
+
+.console .xtitle {
+	text-align: center;
+}
+
+.desc,
+.sublink {
+	margin-top: 2.5vh;
+	margin-bottom: 1.5vh;
+	font-size: 13px;
+}
+.desc a {
+	color: #eee;
+}
+
+.sublink {
+	color: #eee;
+}
+
+.break {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.etxt {
+	min-width: 300px;
+}
+
+@media (max-width: 900px) {
+	.console .title {
+		font-size: 20px;
+		margin-bottom: 15px;
+	}
+	.console input {
+		width: 300px;
+		height: 30px;
+
+		padding: 2px;
+	}
+	.content {
+		font-size: 17px;
+		padding: 10px;
+	}
+}
