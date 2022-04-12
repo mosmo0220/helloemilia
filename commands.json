@@ -1,0 +1,82 @@
+[
+	{
+		"command": "help",
+		"cvalue": "NaV",
+		"content": [
+			["HTTP respond:", "title"],
+			["", "break"],
+			["> 'command' help - pokazuje stronę pomocy", "txt"],
+			["> commands list - pokazuje listę komend", "txt"],
+			["> version - pokazuje aktualną wersje programu", "txt"],
+			["> exit", "etxt"]
+		]
+	},
+	{
+		"command": "version",
+		"cvalue": "NaV",
+		"content": [
+			["Program version: 1.1.20", "title"],
+			["https://music.youtube.com/watch?v=bQCg73ox1Rc&feature=share", "link"],
+			["", "break"]
+		]
+	},
+	{
+		"command": "commands",
+		"cvalue": "list",
+		"content": [
+			["HTTP respond:", "title"],
+			["", "break"],
+			["> daypic", "etxt"],
+			["> finalask", "etxt"],
+			["> declassified", "etxt"]
+		]
+	},
+	{
+		"command": "daypic",
+		"cvalue": "help",
+		"content": [
+			["HTTP respond:", "title"],
+			["", "break"],
+			["daypic x - Pokazuje x dzień z bazy danych", "etxt"]
+		]
+	},
+	{
+		"command": "finalask",
+		"cvalue": "help",
+		"content": [
+			["HTTP respond:", "title"],
+			["", "break"],
+			[
+				"finalask - Pokazuje finałowe pytanie i umożliwia n... XHTPP 404",
+				"etxt"
+			]
+		]
+	},
+	{
+		"command": "declassified",
+		"cvalue": "help",
+		"content": [
+			["HTTP respond:", "title"],
+			["", "break"],
+			["declassified - Pokazuje odtajnione archiwa", "etxt"],
+			["uwu", "etxt"]
+		]
+	},
+	{
+		"command": "uwu",
+		"cvalue": "NaV",
+		"content": [
+			["Easter egg respond:", "title"],
+			["", "break"],
+			[
+				"https://music.youtube.com/watch?v=J95BwC1BVOk&list=RDAMVMJ95BwC1BVOk",
+				"link",
+				"I wanna spend some time with you"
+			],
+			[
+				"Wątpie abyś znalazła tego easter egga, ale jak już znajdziesz, to posłuchaj se tego w tle jak coś robisz. Mega przyjemne do słuchania",
+				"etxt"
+			]
+		]
+	}
+]

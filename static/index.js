@@ -46,10 +46,9 @@ const makeProcess = async () => {
 		result.forEach((e) => {
 			if (e[1] == "link") {
 				let x = document.createElement("a");
-				let y = CryptoJS.MD5("x" + e[2]).toString();
-				x.href = host + "stories/" + y + ".txt";
-				x.innerText = e[0];
-				x.classList.add("sublink");
+				x.href = e[0];
+				x.innerText = e[2];
+				x.classList.add(e[1]);
 				xresult.appendChild(x);
 			} else if (e[1] == "break") {
 				let x = document.createElement("br");

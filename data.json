@@ -60,7 +60,8 @@
 			"content": "$98 $89 Witaj w porcie",
 			"type": "story",
 			"story": {
-				"id": 0
+				"id": 0,
+				"title": "Witaj w porcie"
 			}
 		},
 		{
@@ -94,17 +95,27 @@
 			"content": "$80 $81 $84 (jeden z 4 framentów) $88+$85",
 			"type": "story",
 			"story": {
-				"id": 1
+				"id": 1,
+				"title": "Impreza w porcie"
 			}
 		},
 		{
 			"day": 78,
 			"content": "Oazą spokoju staje się kiedy lepiej traktuje ciało swoje"
+		},
+		{
+			"day": 77,
+			"content": "Biegnij puki sił masz trochę"
+		},
+		{
+			"day": 76,
+			"content": "Bigłem, biegłem, biegłem... Aż do teraz nigdzie nie dobiegłem, ale przynajmniej nie leżę",
+			"type": "special"
 		}
 	],
 	"final": {
 		"a1": null,
 		"a2": null
 	},
-	"unsecured": "ODTAJNIONE (PIERWSZA '10' z 9):\nProjekt 99dni ma więcej niż jeden cel\n..."
+	"unsecured": "ODTAJNIONE (PIERWSZA '10' z 9):\nProjekt 99dni ma więcej niż jeden cel\n\nOdtajnione (DRUGA '10' z 9):\nmimo iż wydaje się, że linie fabularne i finałowe pytanie to jedyny cel, to tak nie jest. Jest to wyzwanie, o którym wspominam w historii 9. Wyzwanie dla mnie i mojej przeszłości\n..."
 }
