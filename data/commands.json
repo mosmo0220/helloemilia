@@ -15,8 +15,12 @@
 		"command": "version",
 		"cvalue": "NaV",
 		"content": [
-			["Program version: 1.1.20", "title"],
-			["https://music.youtube.com/watch?v=bQCg73ox1Rc&feature=share", "link"],
+			["Program version: 1.1.21", "title"],
+			[
+				"https://music.youtube.com/watch?v=bQCg73ox1Rc&feature=share",
+				"link",
+				"Childhood Dreams"
+			],
 			["", "break"]
 		]
 	},

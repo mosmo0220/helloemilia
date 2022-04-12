@@ -15,9 +15,11 @@ app.get("/query/:q/:x", (req, res) => {
 	let command = req.params.q;
 	let cvalue = req.params.x;
 
-	let data = JSON.parse(fs.readFileSync(path.join(__dirname, "/data.json")));
+	let data = JSON.parse(
+		fs.readFileSync(path.join(__dirname, "/data/data.json")),
+	);
 	let data2 = JSON.parse(
-		fs.readFileSync(path.join(__dirname, "/commands.json")),
+		fs.readFileSync(path.join(__dirname, "/data/commands.json")),
 	);
 
 	let resStatus = false;
@@ -50,7 +52,7 @@ app.get("/query/:q/:x", (req, res) => {
 
 				if (day.story != undefined) {
 					let story = fs.readFileSync(
-						path.join(__dirname, "/stories/" + day.story.id + ".txt"),
+						path.join(__dirname, "/data/stories/" + day.story.id + ".txt"),
 						"utf8",
 					);
 
