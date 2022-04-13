@@ -12,6 +12,8 @@ app.get("/", (req, res) => {
 app.get("/query/:q/:x", (req, res) => {
 	let xres = [];
 
+	let max;
+
 	let command = req.params.q;
 	let cvalue = req.params.x;
 
@@ -21,6 +23,15 @@ app.get("/query/:q/:x", (req, res) => {
 	let data2 = JSON.parse(
 		fs.readFileSync(path.join(__dirname, "/data/commands.json")),
 	);
+	let data3 = JSON.parse(
+		fs.readFileSync(path.join(__dirname, "/data/information.json")),
+	);
+
+	data3.forEach((e) => {
+		if (e.code == "daypicmax") {
+			max = e.content;
+		}
+	});
 
 	let resStatus = false;
 	data2.forEach((e) => {
@@ -31,12 +42,10 @@ app.get("/query/:q/:x", (req, res) => {
 	});
 
 	if (!resStatus) {
-		if (command == "daypic" && cvalue != "NaV") {
-			let max = data.days.length;
-			max = data.days[max - 1].day;
-
+		// chceck eggs
+		if (command == "daypic" && cvalue != "NaV" && cvalue != "max") {
 			if (cvalue > 99 || cvalue < max) {
-				xres = e404;
+				xres = [["HTTP 404", "title"]];
 			} else {
 				let day = data.days[(cvalue - 99) * -1];
 				let type = day.type || "normal";
@@ -66,6 +75,30 @@ app.get("/query/:q/:x", (req, res) => {
 					});
 				}
 			}
+		} else if (command == "daypic" && cvalue == "max") {
+			xres = [
+				["HTTP respond:", "title"],
+				["", "break"],
+				["Aktualnie najnowszy dodany dzień to: " + max, "etxt"],
+			];
+		} else if (command == "eggs" && cvalue == "NaV") {
+			let oninput;
+			let onsubpages;
+			let onpage;
+			data3.forEach((e) => {
+				if (e.code == "eggs") {
+					oninput = e.content.oninput;
+					onsubpages = e.content.onsubpages;
+					onpage = e.content.onpage;
+				}
+			});
+			xres = [
+				["HTTP respond:", "title"],
+				["", "break"],
+				["Ilość zagadek w wyszukiwarce: " + oninput, "etxt"],
+				["Ilość zagadek między stronami (w tekscie): " + onsubpages, "etxt"],
+				["Ilość zagadek na stronie (każdej): " + onpage, "etxt"],
+			];
 		} else if (command == "finalask" && cvalue == "NaV") {
 			xres.push(["HTTP respond:", "title"]);
 			xres.push(["", "break"]);
@@ -73,7 +106,7 @@ app.get("/query/:q/:x", (req, res) => {
 			a1 = data.final.a1;
 			a2 = data.final.a2;
 
-			if (a1 == null) a1 = "HTTP 404";
+			if (a1 == null) a1 = "HTTP 401";
 			if (a2 == null) a2 = "HTTP 404";
 
 			xres.push(["Pytanie: " + a1, "txt"]);
@@ -89,10 +122,7 @@ app.get("/query/:q/:x", (req, res) => {
 				xres.push([e, "txt"]);
 			});
 		} else {
-			xres = [
-				["HTTP 404", "title"],
-				["", "break"],
-			];
+			xres = [["HTTP 404", "title"]];
 		}
 	}
 

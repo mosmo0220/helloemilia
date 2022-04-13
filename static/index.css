@@ -9,6 +9,20 @@
 	font-family: "Roboto", sans-serif;
 }
 
+body.dark {
+	--bcg-color: rgb(37, 34, 34);
+	--input-bcg-color: rgba(255, 255, 255, 0.95);
+	--color: rgb(245, 224, 224);
+	--input-color: rgb(44, 42, 42);
+}
+
+body.light {
+	--bcg-color: rgb(226, 213, 213);
+	--input-bcg-color: rgba(43, 39, 39, 0.95);
+	--color: rgb(19, 18, 18);
+	--input-color: rgb(245, 245, 245);
+}
+
 body {
 	display: flex;
 	justify-content: space-between;
@@ -18,8 +32,9 @@ body {
 	width: 100vw;
 	min-height: 100vh;
 
-	background-color: rgb(8, 8, 8);
-	color: #eee;
+	transition: all 0.33s;
+	background-color: var(--bcg-color);
+	color: var(--color);
 }
 
 .console {
@@ -47,7 +62,8 @@ body {
 	padding: 5px;
 
 	border: none;
-	background-color: rgba(255, 255, 255, 0.95);
+	background-color: var(--input-bcg-color);
+	color: var(--input-color);
 }
 
 .console .content {
@@ -84,12 +100,9 @@ body {
 	font-size: 13px;
 }
 .desc a,
-.link {
-	color: #eee;
-}
-
+.link,
 .sublink {
-	color: #eee;
+	color: var(--color);
 }
 
 .txt {

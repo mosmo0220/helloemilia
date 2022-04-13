@@ -7,21 +7,89 @@
 			["", "break"],
 			["> 'command' help - pokazuje stronę pomocy", "txt"],
 			["> commands list - pokazuje listę komend", "txt"],
-			["> version - pokazuje aktualną wersje programu", "txt"],
-			["> exit", "etxt"]
+			["> eggs - pokazuje ilość easter eggów i ich typ", "txt"],
+			["> settings - pokazuje listę ustawień i podpowiedzi", "txt"],
+			["> google - przekierówuje cię do strony googla", "txt"],
+			["> exit - chowa konsole", "etxt"]
+		]
+	},
+	{
+		"command": "settings",
+		"cvalue": "NaV",
+		"content": [
+			["HTTP respond:", "title"],
+			["", "break"],
+			["> theme - zmienia motyw (ciemny -> jasny; jasny -> ciemny)", "txt"],
+			["> httpcodes - jakie są kody http i co oznaczają", "etxt"],
+			["> cookies - jakby cię to interesowało", "etxt"],
+			["> version - pokazuje aktualną wersje programu", "txt"]
+		],
+		"_comment": [
+			["> notification - włącza powiadomienia o następnych cytatach", "txt"]
+		]
+	},
+	{
+		"command": "notification",
+		"cvalue": "NaV",
+		"content": [["notification", "fn"]]
+	},
+	{
+		"command": "theme",
+		"cvalue": "NaV",
+		"content": [["theme", "fn"]]
+	},
+	{
+		"command": "google",
+		"cvalue": "NaV",
+		"content": [["google", "fn"]]
+	},
+	{
+		"command": "cookies",
+		"cvalue": "NaV",
+		"content": [
+			["HTTP respond:", "title"],
+			["", "break"],
+			["Cookies", "title"],
+			["", "break"],
+			[
+				"Grasuje tu kilka niewinnych (chyba) ciasteczek. Sprawdzają one jak często odwiedzasz stronę, czy zezwoliłaś na powiadomienia lub zapisują styl strony",
+				"txt"
+			]
+		]
+	},
+	{
+		"command": "httpcodes",
+		"cvalue": "NaV",
+		"content": [
+			["HTTP respond:", "title"],
+			["", "break"],
+			["HTTP codes", "title"],
+			["> HTTP 200 - Poprawie zwrócony plik", "txt"],
+			["> HTTP 404 - Nie znaleziono pliku/storny", "txt"],
+			["> HTTP 501 - Nie zaimplementowano (brak takiej funkcji)", "txt"],
+			["> HTTP 401 - Nie masz do tej treści uprawnień", "txt"]
 		]
 	},
 	{
 		"command": "version",
 		"cvalue": "NaV",
 		"content": [
-			["Program version: 1.1.21", "title"],
+			["HTTP respond:Program version: 1.2.0", "title"],
+			["", "break"],
+			["Version 1.3.0 Todo: ", "title"],
+			["> 1. System powiadomień", "etxt"],
+			["> 2. System logowania", "etxt"],
+			["> 3. System dodawania cytatów z poziomu strony", "etxt"],
+			["", "break"],
+			["Version 1.4.0 Todo: ", "title"],
+			["> 1. Tajemniczy system związany z... HTTP 404", "etxt"],
+			["> 2. Więcej easter eggów uwu", "etxt"],
+			["", "break"],
 			[
 				"https://music.youtube.com/watch?v=bQCg73ox1Rc&feature=share",
 				"link",
 				"Childhood Dreams"
-			],
-			["", "break"]
+			]
 		]
 	},
 	{
@@ -41,7 +109,8 @@
 		"content": [
 			["HTTP respond:", "title"],
 			["", "break"],
-			["daypic x - Pokazuje x dzień z bazy danych", "etxt"]
+			["daypic x - Pokazuje x dzień z bazy danych", "etxt"],
+			["daypic max - Pokazuje najnowszy dzień jaki został dodany", "etxt"]
 		]
 	},
 	{

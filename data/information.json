@@ -1,0 +1,14 @@
+[
+	{
+		"code": "eggs",
+		"content": {
+			"oninput": 2,
+			"onsubpages": 2,
+			"onpage": 0
+		}
+	},
+	{
+		"code": "daypicmax",
+		"content": 75
+	}
+]
