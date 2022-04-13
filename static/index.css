@@ -10,17 +10,17 @@
 }
 
 body.dark {
-	--bcg-color: rgb(37, 34, 34);
+	--bcg-color: rgb(14, 13, 13);
 	--input-bcg-color: rgba(255, 255, 255, 0.95);
 	--color: rgb(245, 224, 224);
 	--input-color: rgb(44, 42, 42);
 }
 
 body.light {
-	--bcg-color: rgb(226, 213, 213);
+	--bcg-color: rgb(216, 216, 216);
 	--input-bcg-color: rgba(43, 39, 39, 0.95);
-	--color: rgb(19, 18, 18);
-	--input-color: rgb(245, 245, 245);
+	--color: rgb(24, 23, 23);
+	--input-color: rgb(236, 230, 230);
 }
 
 body {
