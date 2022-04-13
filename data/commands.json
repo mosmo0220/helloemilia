@@ -82,5 +82,14 @@
 				"etxt"
 			]
 		]
+	},
+	{
+		"command": "piesek",
+		"cvalue": "mia",
+		"content": [
+			["Easter egg respond:", "title"],
+			["", "break"],
+			["Mój piesek wolf", "etxt"]
+		]
 	}
 ]
