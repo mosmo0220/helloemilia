@@ -116,13 +116,13 @@
 			"day": 75,
 			"content": "Nuda to twórca kreatywności, ale w sumie nikt jej nie lubi"
 		},
-
-		{
-			"_comment": "Section with no published days"
-		},
 		{
 			"day": 74,
 			"content": "Cisza przed burzą, zawsze mnie przerażała i facynowała"
+		},
+
+		{
+			"_comment": "Section with no published days"
 		}
 	],
 	"final": {

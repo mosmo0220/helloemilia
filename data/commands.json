@@ -54,7 +54,9 @@
 			[
 				"Grasuje tu kilka niewinnych (chyba) ciasteczek. Sprawdzają one jak często odwiedzasz stronę, czy zezwoliłaś na powiadomienia lub zapisują styl strony",
 				"txt"
-			]
+			],
+			["Piesek mia", "etxt"],
+			["Lubię mie, bardzo fajnie merda ogonkiem", "txt"]
 		]
 	},
 	{
@@ -74,7 +76,7 @@
 		"command": "version",
 		"cvalue": "NaV",
 		"content": [
-			["HTTP respond:Program version: 1.2.0", "title"],
+			["HTTP respond:Program version: 1.2.1", "title"],
 			["", "break"],
 			["Version 1.3.0 Todo: ", "title"],
 			["> 1. System powiadomień", "etxt"],
@@ -139,7 +141,7 @@
 		"command": "uwu",
 		"cvalue": "NaV",
 		"content": [
-			["Easter egg respond:", "title"],
+			["Easter egg respond nr 1.:", "title"],
 			["", "break"],
 			[
 				"https://music.youtube.com/watch?v=J95BwC1BVOk&list=RDAMVMJ95BwC1BVOk",
@@ -156,9 +158,11 @@
 		"command": "piesek",
 		"cvalue": "mia",
 		"content": [
-			["Easter egg respond:", "title"],
+			["Easter egg respond nr 2.:", "title"],
 			["", "break"],
-			["Mój piesek wolf", "etxt"]
+			["Mój piesek wolf", "etxt"],
+			["Nieraz pozwala mi zapomnieć, że nie mam do kogo się przytulić", "txt"],
+			["Myślę, że te easter eggie będą szył powoli do dna", "etxt"]
 		]
 	}
 ]
