@@ -1,9 +1,34 @@
 const express = require("express");
+
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const webpush = require("web-push");
+
 const path = require("path");
 const fs = require("fs");
+
+let dummyDb = JSON.parse(
+	fs.readFileSync(path.join(__dirname, "/data/subscriptions.json")),
+);
 const app = express();
 
+app.use(cors());
+app.use(bodyParser.json());
 app.use(express.static("static"));
+
+const saveToDatabase = async (subscription) => {
+	dummyDb.subscription.push(subscription);
+	fs.writeFileSync(
+		path.join(__dirname, "/data/subscriptions.json"),
+		JSON.stringify(dummyDb),
+	);
+};
+
+app.post("/save-subscription", async (req, res) => {
+	const subscription = req.body;
+	await saveToDatabase(subscription);
+	res.json({ message: "success" });
+});
 
 app.get("/", (req, res) => {
 	res.sendFile(path.join(__dirname, "/index.html"));
@@ -129,6 +154,37 @@ app.get("/query/:q/:x", (req, res) => {
 	res.json(xres);
 });
 
-app.listen(process.env.PORT || 3000, () => {
+const vapidKeys = {
+	publicKey:
+		"BCrSX98CXv5an1_eanEnfKwezkfEgvlylKlffYOKsv0wIJ5_cZ230SGy8YZsXgkzdlkGXgtf95R1BkOSR2aOTLA",
+	privateKey: "soDyjJccDpMNta8OqEDsnn7NfsfcxsY09rHN-Ru9hgA",
+};
+//setting our previously generated VAPID keys
+webpush.setVapidDetails(
+	"mailto:mosmo2k@gmail.com",
+	vapidKeys.publicKey,
+	vapidKeys.privateKey,
+);
+
+let sub = JSON.parse(
+	fs.readFileSync(path.join(__dirname, "/data/subscriptions.json")),
+);
+
+//function to send the notification to the subscribed device
+const sendNotification = (dataToSend = process.argv.TYPE) => {
+	if (sub.subscription.length != 0) {
+		sub.subscription.forEach((subscription) => {
+			webpush.sendNotification(subscription, dataToSend);
+		});
+	}
+};
+
+app.get("/sendNotification/:content", async (req, res) => {
+	let dataToSend = req.params.content;
+	await sendNotification(dataToSend);
+	res.sendStatus(204);
+});
+
+app.listen(3000, () => {
 	console.log(`I'm saying right now`);
 });

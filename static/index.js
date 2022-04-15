@@ -4,9 +4,38 @@ const content = document.querySelector(".content");
 
 const body = document.body;
 
-let host;
+const saveSubscription = async (subscription) => {
+	const SERVER_URL = host + "save-subscription";
+	console.log(SERVER_URL);
+	const response = await fetch(SERVER_URL, {
+		method: "post",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(subscription),
+	});
+	return response.json();
+};
+
+// urlB64ToUint8Array is a magic function that will encode the base64 public key
+// to Array buffer which is needed by the subscription option
+const urlB64ToUint8Array = (base64String) => {
+	const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+	const base64 = (base64String + padding)
+		.replace(/\-/g, "+")
+		.replace(/_/g, "/");
+	const rawData = atob(base64);
+	const outputArray = new Uint8Array(rawData.length);
+	for (let i = 0; i < rawData.length; ++i) {
+		outputArray[i] = rawData.charCodeAt(i);
+	}
+	return outputArray;
+};
+
 let theme;
 let notification;
+
+let sw;
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -15,10 +44,6 @@ function logBasicData() {
 	console.log("Theme: ", theme);
 	console.log("Host: ", host);
 }
-
-const manageNotification = () => {
-	notification = Notification.permission;
-};
 
 const setTheme = () => {
 	if (theme == "firstload") {
@@ -105,11 +130,24 @@ const makeProcess = async () => {
 		if (result[0][0] == "google") {
 			document.location.href = "https://www.google.com/";
 		} else if (result[0][0] == "notification") {
-			await Notification.requestPermission().then((permission) => {
+			await Notification.requestPermission().then(async (permission) => {
 				if (permission == "granted") {
 					xresult.innerHTML +=
 						"<br> <p>Uzyskano pozwolenie na powiadomienia</p>";
 					notification = "granted";
+
+					try {
+						const applicationServerKey = urlB64ToUint8Array(
+							"BCrSX98CXv5an1_eanEnfKwezkfEgvlylKlffYOKsv0wIJ5_cZ230SGy8YZsXgkzdlkGXgtf95R1BkOSR2aOTLA",
+						);
+						const options = { applicationServerKey, userVisibleOnly: true };
+
+						const subscription = await sw.pushManager.subscribe(options);
+						const response = await saveSubscription(subscription);
+						console.log(response);
+					} catch (err) {
+						console.log("Error", err);
+					}
 				} else {
 					xresult.innerHTML +=
 						"<br> <p>Nie uzyskano pozwolenia na powiadomienia</p>";
@@ -174,11 +212,23 @@ const makeProcess = async () => {
 	}
 };
 
-start = () => {
-	host = window.location.href;
+start = async () => {
+	// Set vars
 	theme = "firstload";
+	notification = Notification.permission;
+
+	// Load service worker
+	if (!("serviceWorker" in navigator)) {
+		console.error("No Service Worker support");
+	} else {
+		sw = await navigator.serviceWorker.register("sw.js");
+	}
+	if (!("PushManager" in window)) {
+		console.log("No Push API Support");
+	}
+
+	// Manage aplication
 	setTheme();
-	manageNotification();
 };
 
 start();

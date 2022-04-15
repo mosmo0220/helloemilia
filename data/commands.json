@@ -22,9 +22,7 @@
 			["> theme - zmienia motyw (ciemny -> jasny; jasny -> ciemny)", "txt"],
 			["> httpcodes - jakie są kody http i co oznaczają", "etxt"],
 			["> cookies - jakby cię to interesowało", "etxt"],
-			["> version - pokazuje aktualną wersje programu", "txt"]
-		],
-		"_comment": [
+			["> version - pokazuje aktualną wersje programu", "txt"],
 			["> notification - włącza powiadomienia o następnych cytatach", "txt"]
 		]
 	},
@@ -76,7 +74,7 @@
 		"command": "version",
 		"cvalue": "NaV",
 		"content": [
-			["HTTP respond:Program version: 1.2.1", "title"],
+			["HTTP respond: v1.2.2 SW Update", "title"],
 			["", "break"],
 			["Version 1.3.0 Todo: ", "title"],
 			["> 1. System powiadomień", "etxt"],
