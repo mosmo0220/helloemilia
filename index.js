@@ -1,39 +1,77 @@
 const express = require("express");
 
+// Handling reqests
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const webpush = require("web-push");
 
+// File getting fn
 const path = require("path");
 const fs = require("fs");
 
-let dummyDb = JSON.parse(
-	fs.readFileSync(path.join(__dirname, "/data/subscriptions.json")),
-);
+// let sub = JSON.parse(
+// 	fs.readFileSync(path.join(__dirname, "/data/subscriptions.json")),
+// );
+let sub = { subscription: [] };
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("static"));
 
+const vapidKeys = {
+	publicKey:
+		"BCrSX98CXv5an1_eanEnfKwezkfEgvlylKlffYOKsv0wIJ5_cZ230SGy8YZsXgkzdlkGXgtf95R1BkOSR2aOTLA",
+	privateKey: "soDyjJccDpMNta8OqEDsnn7NfsfcxsY09rHN-Ru9hgA",
+};
+//setting our previously generated VAPID keys
+webpush.setVapidDetails(
+	"mailto:mosmo2k@gmail.com",
+	vapidKeys.publicKey,
+	vapidKeys.privateKey,
+);
+
 const saveToDatabase = async (subscription) => {
-	dummyDb.subscription.push(subscription);
-	fs.writeFileSync(
-		path.join(__dirname, "/data/subscriptions.json"),
-		JSON.stringify(dummyDb),
-	);
+	sub.subscription.push(subscription);
 };
 
+//function to send the notification to the subscribed device
+const sendNotification = (dataToSend = process.argv.TYPE) => {
+	if (sub.subscription.length != 0) {
+		sub.subscription.forEach((subscription) => {
+			webpush.sendNotification(subscription, dataToSend);
+		});
+	}
+};
+
+// Returning pages
+app.get("/", (req, res) => {
+	res.sendFile(path.join(__dirname, "/pages/index.html"));
+});
+app.get("/panel", (req, res) => {
+	res.sendFile(path.join(__dirname, "/pages/panel.html"));
+});
+
+// Login
+app.post("/login", (req, res) => {
+	res.sendStatus(204);
+});
+
+// Saving notification subscriptions
 app.post("/save-subscription", async (req, res) => {
 	const subscription = req.body;
 	await saveToDatabase(subscription);
 	res.json({ message: "success" });
 });
 
-app.get("/", (req, res) => {
-	res.sendFile(path.join(__dirname, "/index.html"));
+// Sending notifications
+app.get("/sendNotification/:content", async (req, res) => {
+	let dataToSend = req.params.content;
+	await sendNotification(dataToSend);
+	res.sendStatus(204);
 });
 
+// handling query on console
 app.get("/query/:q/:x", (req, res) => {
 	let xres = [];
 
@@ -45,21 +83,21 @@ app.get("/query/:q/:x", (req, res) => {
 	let data = JSON.parse(
 		fs.readFileSync(path.join(__dirname, "/data/data.json")),
 	);
-	let data2 = JSON.parse(
+	let commands = JSON.parse(
 		fs.readFileSync(path.join(__dirname, "/data/commands.json")),
 	);
-	let data3 = JSON.parse(
+	let information = JSON.parse(
 		fs.readFileSync(path.join(__dirname, "/data/information.json")),
 	);
 
-	data3.forEach((e) => {
+	information.forEach((e) => {
 		if (e.code == "daypicmax") {
 			max = e.content;
 		}
 	});
 
 	let resStatus = false;
-	data2.forEach((e) => {
+	commands.forEach((e) => {
 		if (e.command == command && e.cvalue == cvalue && !resStatus) {
 			xres = e.content;
 			resStatus = true;
@@ -110,7 +148,7 @@ app.get("/query/:q/:x", (req, res) => {
 			let oninput;
 			let onsubpages;
 			let onpage;
-			data3.forEach((e) => {
+			information.forEach((e) => {
 				if (e.code == "eggs") {
 					oninput = e.content.oninput;
 					onsubpages = e.content.onsubpages;
@@ -152,37 +190,6 @@ app.get("/query/:q/:x", (req, res) => {
 	}
 
 	res.json(xres);
-});
-
-const vapidKeys = {
-	publicKey:
-		"BCrSX98CXv5an1_eanEnfKwezkfEgvlylKlffYOKsv0wIJ5_cZ230SGy8YZsXgkzdlkGXgtf95R1BkOSR2aOTLA",
-	privateKey: "soDyjJccDpMNta8OqEDsnn7NfsfcxsY09rHN-Ru9hgA",
-};
-//setting our previously generated VAPID keys
-webpush.setVapidDetails(
-	"mailto:mosmo2k@gmail.com",
-	vapidKeys.publicKey,
-	vapidKeys.privateKey,
-);
-
-let sub = JSON.parse(
-	fs.readFileSync(path.join(__dirname, "/data/subscriptions.json")),
-);
-
-//function to send the notification to the subscribed device
-const sendNotification = (dataToSend = process.argv.TYPE) => {
-	if (sub.subscription.length != 0) {
-		sub.subscription.forEach((subscription) => {
-			webpush.sendNotification(subscription, dataToSend);
-		});
-	}
-};
-
-app.get("/sendNotification/:content", async (req, res) => {
-	let dataToSend = req.params.content;
-	await sendNotification(dataToSend);
-	res.sendStatus(204);
 });
 
 app.listen(process.env.PORT || 3000, () => {

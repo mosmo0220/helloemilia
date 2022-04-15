@@ -6,7 +6,6 @@ const body = document.body;
 
 const saveSubscription = async (subscription) => {
 	const SERVER_URL = host + "save-subscription";
-	console.log(SERVER_URL);
 	const response = await fetch(SERVER_URL, {
 		method: "post",
 		headers: {
@@ -144,7 +143,6 @@ const makeProcess = async () => {
 
 						const subscription = await sw.pushManager.subscribe(options);
 						const response = await saveSubscription(subscription);
-						console.log(response);
 					} catch (err) {
 						console.log("Error", err);
 					}

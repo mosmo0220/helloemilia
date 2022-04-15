@@ -23,7 +23,10 @@
 			["> httpcodes - jakie są kody http i co oznaczają", "etxt"],
 			["> cookies - jakby cię to interesowało", "etxt"],
 			["> version - pokazuje aktualną wersje programu", "txt"],
-			["> notification - włącza powiadomienia o następnych cytatach", "txt"]
+			[
+				"> notification (nie stabilne) - włącza powiadomienia o następnych cytatach",
+				"txt"
+			]
 		]
 	},
 	{
