@@ -1,45 +1,65 @@
-var VERSION = "v1.2.2";
+// *******************************************   p-cache.js    ***********************************************
+// What it does: it caches all requests a site makes (css, js, html, etc.) and when the app is offline it loads the cached version.
+// On the Developer Tools' Network tab, if Disable cache is checked, requests will go to the network instead of the Service Worker. Uncheck that.
+// Incognito mode skips the service worker as well!
 
-var cacheFirstFiles = [
-	// ADDME: Add paths and URLs to pull from cache first if it has been loaded before. Else fetch from network.
-	// If loading from cache, fetch from network in the background to update the resource. Examples:
-	// 'assets/img/logo.png',
-	// 'assets/models/controller.gltf',
-];
+var cacheName = "resp-v1.3.0";
 
-var networkFirstFiles = [
-	// ADDME: Add paths and URLs to pull from network first. Else fall back to cache if offline. Examples:
-	// 'index.html',
-	// 'build/build.js',
-	// 'css/index.css'
-	"/",
-	"index.css",
-	"index.js",
-];
+// Installing Service Worker
+// "https://legends.io/index.html"
+self.addEventListener("install", function (e) {
+	e.waitUntil(
+		caches.open(cacheName).then(function (cache) {
+			return cache.addAll([
+				"/",
+				"/css/index.css",
+				"/js/index.js",
 
-// Below is the service worker code.
+				"/js/cookie.js",
+				"/images/icons-512.png",
+			]);
+		}),
+	);
+	console.log("[Service Worker] Install");
+});
 
-var cacheFiles = cacheFirstFiles.concat(networkFirstFiles);
-
-self.addEventListener("install", (event) => {
-	event.waitUntil(
-		caches.open(VERSION).then((cache) => {
-			return cache.addAll(cacheFiles);
+self.addEventListener("activate", (e) => {
+	// Remove unwanted caches
+	e.waitUntil(
+		caches.keys().then((cacheNames) => {
+			return Promise.all(
+				cacheNames.map((cache) => {
+					if (cache !== cacheName) {
+						return caches.delete(cache);
+					}
+				}),
+			);
 		}),
 	);
 });
 
-self.addEventListener("fetch", (event) => {
-	if (event.request.method !== "GET") {
-		return;
-	}
-	if (networkFirstFiles.indexOf(event.request.url) !== -1) {
-		event.respondWith(networkElseCache(event));
-	} else if (cacheFirstFiles.indexOf(event.request.url) !== -1) {
-		event.respondWith(cacheElseNetwork(event));
-	} else {
-		event.respondWith(fetch(event.request));
-	}
+// FETCH PROXY & CACHING
+// 1.) try get resource from cache else fetch and update cache else --> error
+self.addEventListener("fetch", function (e) {
+	e.respondWith(
+		caches.match(e.request).then(function (r) {
+			return (
+				r ||
+				fetch(e.request)
+					.then(function (response) {
+						return caches.open(cacheName).then(function (cache) {
+							cache.put(e.request, response.clone()).catch(function (err) {
+								return;
+							});
+							return response;
+						});
+					})
+					.catch(function (err) {
+						return;
+					})
+			);
+		}),
+	);
 });
 
 notificationTable = [
@@ -71,49 +91,3 @@ self.addEventListener("push", function (event) {
 		console.log("Push event has no data");
 	}
 });
-
-// If cache else network.
-// For images and assets that are not critical to be fully up-to-date.
-// developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
-// #cache-falling-back-to-network
-function cacheElseNetwork(event) {
-	return caches.match(event.request).then((response) => {
-		function fetchAndCache() {
-			return fetch(event.request).then((response) => {
-				// Update cache.
-				caches
-					.open(VERSION)
-					.then((cache) => cache.put(event.request, response.clone()));
-				return response;
-			});
-		}
-
-		// If not exist in cache, fetch.
-		if (!response) {
-			return fetchAndCache();
-		}
-
-		// If exists in cache, return from cache while updating cache in background.
-		fetchAndCache();
-		return response;
-	});
-}
-
-// If network else cache.
-// For assets we prefer to be up-to-date (i.e., JavaScript file).
-function networkElseCache(event) {
-	return caches.match(event.request).then((match) => {
-		if (!match) {
-			return fetch(event.request);
-		}
-		return (
-			fetch(event.request).then((response) => {
-				// Update cache.
-				caches
-					.open(VERSION)
-					.then((cache) => cache.put(event.request, response.clone()));
-				return response;
-			}) || response
-		);
-	});
-}

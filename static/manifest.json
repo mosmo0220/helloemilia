@@ -1,0 +1,14 @@
+{
+	"short_name": "HEmilia",
+	"name": "Hello Emilia",
+	"icons": [
+		{
+			"src": "/images/icons-512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_url": "/",
+	"background_color": "#141313",
+	"display": "standalone"
+}
