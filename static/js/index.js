@@ -9,7 +9,7 @@ const themeStatus = document.querySelector(".theme");
 const body = document.body;
 
 const host = window.location.href;
-const restapi = "https://mosmo0220.pythonanywhere.com/";
+const restapi = "https://helloemilia-api.herokuapp.com/";
 
 let isConsoleOpened = false;
 const closedConsolePadding = "7vh";
@@ -247,6 +247,7 @@ async function executeQuery(result) {
 			x = result[0];
 			y = result[1];
 			z = result[2];
+			g = result[3] || undefined;
 
 			r += `<p class="title"> `;
 			r += x;
@@ -256,11 +257,13 @@ async function executeQuery(result) {
 			r += y;
 			r += "</p>";
 
-			if (z.length > 25) {
+			if (g != undefined) {
 				r += "<br/>";
-				r += `<p class="title">Historia</p>`;
-				r += `<p class="txt"> `;
+				r += `<p class="title">`;
 				r += z;
+				r += `</p>`;
+				r += `<p class="txt"> `;
+				r += g;
 				r += "</p>";
 			} else {
 				r += `<p class="desc">Type: `;
