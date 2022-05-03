@@ -23,40 +23,14 @@ function changeConsolePadding() {
 let isDaypic = false;
 let isUnsecured = false;
 
-const saveSubscription = async (subscription) => {
-	const SERVER_URL = restapi + "save-subscription";
-	const response = await fetch(SERVER_URL, {
-		method: "post",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(subscription),
-	});
-	return response.json();
-};
-
-const urlB64ToUint8Array = (base64String) => {
-	const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-	const base64 = (base64String + padding)
-		.replace(/\-/g, "+")
-		.replace(/_/g, "/");
-	const rawData = atob(base64);
-	const outputArray = new Uint8Array(rawData.length);
-	for (let i = 0; i < rawData.length; ++i) {
-		outputArray[i] = rawData.charCodeAt(i);
-	}
-	return outputArray;
-};
-
 let theme;
-let notification;
 
 let sw;
 async function loadSW() {
 	if (!("serviceWorker" in navigator)) {
 		console.error("No Service Worker support");
 	} else {
-		sw = await await navigator.serviceWorker.register("sw.js");
+		sw = await navigator.serviceWorker.register("sw.js");
 		return "Poprawnie załadowano Service workera";
 	}
 }
@@ -67,6 +41,23 @@ function logBasicData() {
 	console.log("Notification: ", notification);
 	console.log("Theme: ", theme);
 	console.log("Host: ", host);
+}
+
+async function hideDOMElements(domElements) {
+	domElements.forEach((e) => {
+		e.style.opacity = "0";
+	});
+	input.disabled = true;
+
+	await delay(1001);
+}
+
+async function showDOMElements(domElements) {
+	domElements.forEach((e) => {
+		e.style.opacity = "1";
+	});
+
+	input.disabled = false;
 }
 
 function setThemeCallback(call, operation) {
@@ -104,48 +95,9 @@ async function reverseTheme() {
 	return setThemeCallback(theme, "reverse");
 }
 
-async function notificationManage() {
-	result = "";
-	if (!("PushManager" in window)) {
-		console.log("No Push API Support");
-		result = "Ta przeglądarka tego nie obsługuje";
-	} else {
-		await Notification.requestPermission().then(async (permission) => {
-			if (permission == "granted") {
-				notification = "granted";
-				try {
-					const applicationServerKey = urlB64ToUint8Array(
-						"BCrSX98CXv5an1_eanEnfKwezkfEgvlylKlffYOKsv0wIJ5_cZ230SGy8YZsXgkzdlkGXgtf95R1BkOSR2aOTLA",
-					);
-					const options = { applicationServerKey, userVisibleOnly: true };
-
-					const subscription = await sw.pushManager.subscribe(options);
-					const response = await saveSubscription(subscription);
-				} catch (err) {
-					console.log("Error", err);
-					result = [
-						"Błąd komunikacji z serwerem",
-						"Zresetuj uprawnienia w przeglądarce i spróbuj ponownie",
-					];
-				} finally {
-					result = "Uzyskano pozwolenie na powiadomienia";
-				}
-			} else {
-				result += [
-					"Nie uzyskano pozwolenia na powiadomienia",
-					"Zresetuj uprawnienia w przeglądarce i spróbuj ponownie",
-				];
-				notification = "denied";
-			}
-		});
-	}
-	return result;
-}
-
 async function saveConsole(hide = false) {
 	if (isConsoleOpened) {
-		content.style.opacity = "0";
-		await delay(1001);
+		await hideDOMElements([content]);
 		changeConsolePadding();
 
 		if (!hide) {
@@ -153,17 +105,13 @@ async function saveConsole(hide = false) {
 			content.innerHTML = "";
 		}
 
-		news.style.opacity = "1";
-		version.style.opacity = "1";
+		await showDOMElements([news, version]);
 	}
 	input.value = "";
 }
 
 async function openConsole() {
-	news.style.opacity = "0";
-	version.style.opacity = "0";
-	content.style.opacity = "0";
-	await delay(1001);
+	await hideDOMElements([news, version, content]);
 	if (!isConsoleOpened) {
 		changeConsolePadding();
 	}
@@ -171,7 +119,7 @@ async function openConsole() {
 	let save = localStorage.getItem("console");
 	content.innerHTML = save ? save : "Nie znaleziono zapisu konsoli";
 
-	content.style.opacity = "1";
+	await showDOMElements([content]);
 	input.value = "";
 }
 
@@ -229,11 +177,7 @@ async function executeQuery(result) {
 		changeConsolePadding();
 	}
 
-	news.style.opacity = "0";
-	version.style.opacity = "0";
-
-	content.style.opacity = "0";
-	await delay(1001);
+	await hideDOMElements([news, version, content]);
 
 	if (typeof result == "string") {
 		if (isUnsecured) {
@@ -294,8 +238,8 @@ async function executeQuery(result) {
 		content.innerHTML = r;
 	}
 
+	await showDOMElements([content]);
 	input.value = "";
-	content.style.opacity = "1";
 }
 
 const makeProcess = async () => {
@@ -339,9 +283,8 @@ const makeProcess = async () => {
 
 	if (!online) {
 		content.innerHTML = `<p class="txt">Brak połączenia z serwerem/internetem</p>`;
-		content.style.opacity = "1";
-		news.style.opacity = "0";
-		version.style.opacity = "0";
+		await showDOMElements([content]);
+		await hideDOMElements([news, version]);
 		input.value = "";
 		return;
 	}
@@ -356,13 +299,6 @@ const makeProcess = async () => {
 
 		case "theme":
 			result = (await reverseTheme()).toString();
-
-			await executeQuery(result);
-			await delay(2500);
-			saveConsole(true);
-			break;
-		case "notification":
-			result = await notificationManage();
 
 			await executeQuery(result);
 			await delay(2500);
@@ -404,11 +340,6 @@ async function reloadinfo() {
 		xconsole.style.paddingTop = closedConsolePadding;
 		initLoad = false;
 	}
-
-	notification = Notification.permission;
-
-	notf = notification == "granted" ? "włączone" : "wyłączone";
-	notificationStatus.innerHTML = "Powiadomienia: " + notf;
 
 	th = theme == "dark" ? "ciemny" : "jasny";
 	themeStatus.innerHTML = "Motyw: " + th;

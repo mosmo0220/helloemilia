@@ -3,7 +3,6 @@ const express = require("express");
 // Handling reqests
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const webpush = require("web-push");
 
 const app = express();
 const path = require("path");
@@ -78,45 +77,10 @@ app.get("/login", (req, res) => {
 	res.sendFile(path.join(__dirname, "/pages/login.html"));
 });
 
-// Sending notifications
-const vapidKeys = {
-	publicKey:
-		"BCrSX98CXv5an1_eanEnfKwezkfEgvlylKlffYOKsv0wIJ5_cZ230SGy8YZsXgkzdlkGXgtf95R1BkOSR2aOTLA",
-	privateKey: "soDyjJccDpMNta8OqEDsnn7NfsfcxsY09rHN-Ru9hgA",
-};
-//setting our previously generated VAPID keys
-webpush.setVapidDetails(
-	"mailto:mosmo2k@gmail.com",
-	vapidKeys.publicKey,
-	vapidKeys.privateKey,
-);
-
-//function to send the notification to the subscribed device
-const sendNotification = (dataToSend, sub) => {
-	if (sub.subscription.length != 0) {
-		sub.subscription.forEach((subscription) => {
-			webpush.sendNotification(subscription, dataToSend);
-		});
-	}
-};
-
-app.post("/sendNotification", async (req, res) => {
-	let dataToSend = req.body.content;
-	let subList = req.body.sublist;
-
-	try {
-		await sendNotification(dataToSend, subList);
-	} catch (error) {
-		res.send(error);
-	} finally {
-		res.sendStatus(204);
-	}
-});
-
 // Hosting application
 app.listen(process.env.PORT || 3000, () => {
 	app.get("/ping", (req, res) => {
 		res.sendStatus(200);
 	});
-	console.log(`I'm saying right now`);
+	console.log(`Hosting on port: ${process.env.PORT || 3000}`);
 });
