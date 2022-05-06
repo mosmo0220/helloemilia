@@ -145,6 +145,10 @@ async function makeQuery(x) {
 		argv = "empty";
 	}
 
+	if (isDaypic && argv[0] == "max") {
+		isDaypic = false;
+	}
+
 	let formData = new FormData();
 	formData.append("command", command);
 	formData.append("argv", argv);
