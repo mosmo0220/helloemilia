@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Strona z cytatami stworzona dla Emili" />
+		<meta name="author" content="mosmo0220" />
+		<link rel="shortcut icon" href="/icons-512.png" />
+		<style>
+			@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+			body {
+				box-sizing: border-box;
+				margin: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-height: 100vh;
+				font-family: "Rubik", sans-serif;
+				background-color: rgb(14, 13, 13);
+				color: rgb(245, 224, 224);
+			}
+			main {
+				width: 90vw;
+				padding: 10px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+			}
+			main p {
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+		</style>
+		<title>HelloEmilia</title>
+	</head>
+	<body>
+		<main>
+			<h1>Server is down</h1>
+			<p
+				>400 - Anulowano na podstawie prawa o dowolnej rezygnacji jednej z
+				stron</p
+			>
+			<p
+				>Powodem rezygnacji jest to, iż parametry sytułacji nie wchodzą w
+				założenia celu</p
+			>
+		</main>
+	</body>
+	<script>
+		async function _sw() {
+			if (!("serviceWorker" in navigator)) {
+				console.error("No Service Worker support");
+			} else {
+				sw = await navigator.serviceWorker.register("sw.js");
+				return "Poprawnie załadowano Service workera";
+			}
+		}
+		_sw();
+	</script>
+</html>

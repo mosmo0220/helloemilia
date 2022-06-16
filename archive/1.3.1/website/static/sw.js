@@ -3,14 +3,21 @@
 // On the Developer Tools' Network tab, if Disable cache is checked, requests will go to the network instead of the Service Worker. Uncheck that.
 // Incognito mode skips the service worker as well!
 
-var cacheName = "resp-off";
+var cacheName = "resp-v1.3.1";
 
 // Installing Service Worker
 // "https://legends.io/index.html"
 self.addEventListener("install", function (e) {
 	e.waitUntil(
 		caches.open(cacheName).then(function (cache) {
-			return cache.addAll(["/", "/icons-512.png"]);
+			return cache.addAll([
+				"/",
+				"/index/index.css",
+				"/index/index.js",
+
+				"/cookie.js",
+				"/icons-512.png",
+			]);
 		}),
 	);
 	self.skipWaiting();

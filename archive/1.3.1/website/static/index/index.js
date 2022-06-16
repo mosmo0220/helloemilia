@@ -350,3 +350,4 @@ async function reloadinfo() {
 }
 
 reloadinfo();
+// Now im coding with vim ext
