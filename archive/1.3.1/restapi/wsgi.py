@@ -7,7 +7,7 @@ APPVERSION = "1.4.0"
 app = Flask(__name__)
 
 def SQLResult(sql):
-  _db = mysql.connector.connect(host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",user="zje6o8keqvkmdre2",password="g1g8dljdh99svo8h",database="fmo3pbt3jd9m9tja")
+  _db = mysql.connector.connect()
   _cur = _db.cursor()
   
   _cur.execute(sql)
